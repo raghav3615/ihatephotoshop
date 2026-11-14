@@ -1,0 +1,2 @@
+.tool-strip{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin-bottom:70px;padding:54px 58px}.tool-strip h2{margin-bottom:34px}.tool-pills{display:flex;gap:9px;flex-wrap:wrap}.tool-pills span{font:12px 'DM Mono';color:var(--ink);padding:10px 12px;border:1px solid var(--line);border-radius:99px;background:var(--bg)}@media(max-width:700px){.tool-strip{margin:0 16px 50px;padding:35px 24px}.tool-strip h2{font-size:36px}}
+body:has(.landing){overflow:auto;background:var(--bg)}

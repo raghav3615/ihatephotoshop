@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Untitled — ihatephotoshop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="ihatephotoshop home">
+          <span class="brand-mark"><i></i><i></i><i></i></span>
+          <span>ihate<span>photoshop</span></span>
+        </a>
+        <div class="document-title"><span class="status-dot"></span><input id="docName" value="Untitled composition" aria-label="Document name" /></div>
+        <div class="canvas-tabs" id="canvasTabs"></div><button class="new-canvas-top" id="newCanvasTop">+ Canvas</button><button class="delete-canvas-top" id="deleteCanvasTop" title="Delete selected canvas">⌫</button>
+        <div class="top-actions">
+          <button class="icon-button" id="themeBtn" title="Toggle dark mode" aria-label="Toggle dark mode">◐</button>
+          <button class="icon-button" id="undoBtn" title="Undo" aria-label="Undo">↶</button>
+          <button class="icon-button" id="redoBtn" title="Redo" aria-label="Redo">↷</button>
+          <span class="hairline"></span>
+          <button class="button subtle" id="shareBtn">Share</button>
+          <button class="button primary" id="exportTop">Export <span>↗</span></button>
+        </div>
+      </header>
+
+      <aside class="left-rail">
+        <button class="rail-button active" data-panel="assets" title="Assets"><span>▣</span><small>Assets</small></button>
+        <button class="rail-button" data-panel="canvas" title="Canvas"><span>◫</span><small>Canvas</small></button>
+        <button class="rail-button" data-panel="layers" title="Layers"><span>☷</span><small>Layers</small></button>
+        <div class="rail-spacer"></div>
+        <button class="rail-button" id="helpBtn" title="Help"><span>?</span><small>Help</small></button>
+      </aside>
+
+      <aside class="panel" id="sidePanel">
+        <section data-section="assets">
+          <div class="panel-head"><div><p class="eyebrow">YOUR LIBRARY</p><h2>Assets</h2></div><button class="mini-button" id="addAssetBtn">+</button></div>
+          <button class="upload-card" id="uploadCard">
+            <span class="upload-icon">↑</span>
+            <strong>Drop anything here</strong>
+            <small>Images or PDF files · 50 MB max</small>
+          </button>
+          <div class="or"><span></span>or<span></span></div>
+          <button class="wide-button" id="blankCanvasBtn"><span class="color-swatch"></span>New blank canvas</button>
+          <div class="asset-section-title"><span>RECENT</span><button id="clearAssets">Clear</button></div>
+          <div class="asset-list" id="assetList"><div class="empty-assets">Your uploaded files will live here.</div></div>
+        </section>
+
+        <section data-section="canvas" hidden>
+          <div class="panel-head"><div><p class="eyebrow">COMPOSITION</p><h2>Canvas</h2></div></div>
+          <label class="setting-label">Background</label>
+          <div class="color-row"><input id="backgroundPicker" type="color" value="#101113" /><input id="backgroundHex" class="hex-input" value="#101113" maxlength="7" /></div>
+          <div class="preset-grid" id="colorPresets">
+            <button data-color="#101113" style="--c:#101113" class="selected"></button><button data-color="#f5f4f1" style="--c:#f5f4f1"></button><button data-color="#e9ded1" style="--c:#e9ded1"></button><button data-color="#d9f99d" style="--c:#d9f99d"></button><button data-color="#b5d1ff" style="--c:#b5d1ff"></button><button data-color="#ffc6d9" style="--c:#ffc6d9"></button>
+          </div>
+          <div class="divider"></div>
+          <label class="setting-label">Format</label>
+          <select id="formatSelect" class="select-control"><option value="1400x900">Landscape · 1400 × 900</option><option value="1080x1080">Square · 1080 × 1080</option><option value="1080x1350">Portrait · 1080 × 1350</option><option value="1920x1080">Presentation · 1920 × 1080</option></select>
+          <div class="canvas-spec"><span id="canvasDimensions">1400 × 900 px</span><span>72 DPI</span></div>
+        </section>
+
+        <section data-section="layers" hidden>
+          <div class="panel-head"><div><p class="eyebrow">ARRANGEMENT</p><h2>Layers</h2></div><button class="mini-button" id="duplicateBtn">+</button></div>
+          <div id="layersList" class="layers-list"><div class="empty-assets">No layers yet.</div></div>
+        </section>
+      </aside>
+
+      <main class="workspace">
+        <div class="workspace-toolbar">
+          <div class="toolbar-group"><button id="selectTool" class="tool active" title="Move tool">↖</button><button id="handTool" class="tool" title="Pan canvas">✋</button></div>
+          <div class="toolbar-group selection-tools" id="selectionTools"><button class="tool" id="backwardBtn" title="Send backward">↓</button><button class="tool" id="forwardBtn" title="Bring forward">↑</button><button class="tool delete-tool" id="deleteBtn" title="Delete">⌫</button></div>
+          <div class="zoom-controls"><button id="zoomOut">−</button><span id="zoomText">Fit</span><button id="zoomIn">+</button></div>
+        </div>
+        <div class="canvas-stage" id="canvasStage">
+          <div class="canvas-wrap" id="canvasWrap"><canvas id="editorCanvas" width="1400" height="900"></canvas></div>
+          <div class="stage-tip" id="stageTip"><kbd>⌘</kbd> + scroll to zoom <span>·</span> Drag to move</div>
+        </div>
+      </main>
+
+      <aside class="inspector">
+        <div class="inspector-empty" id="inspectorEmpty"><div class="spark">✦</div><h3>Make it yours</h3><p>Drop in an image, PDF or start with a clean canvas.</p></div>
+        <div id="inspectorContent" hidden>
+          <div class="inspector-head"><p class="eyebrow">SELECTED LAYER</p><button id="closeInspector">×</button></div>
+          <h3 id="selectedName">Image</h3>
+          <div class="thumb-preview" id="selectedPreview"></div>
+          <div class="inspector-divider"></div>
+          <div class="control-pair"><label>Opacity <output id="opacityValue">100%</output></label><input id="opacityRange" type="range" min="10" max="100" value="100" /></div>
+          <div class="control-pair"><label>Rotation <output id="rotationValue">0°</output></label><div class="angle-input"><input id="rotationRange" type="range" min="-180" max="180" value="0" /><input id="rotationNumber" type="number" min="-360" max="360" value="0" /><span>°</span></div></div>
+          <div class="inspector-divider"></div>
+          <label class="setting-label">POSITION</label>
+          <div class="numeric-grid"><label>X<input id="posX" type="number" /></label><label>Y<input id="posY" type="number" /></label><label>W<input id="sizeW" type="number" min="1" /></label><label>H<input id="sizeH" type="number" min="1" /></label></div>
+          <div class="inspector-divider"></div>
+          <button class="wide-button" id="fitLayerBtn">↗ Fit to canvas</button>
+          <button class="wide-button danger" id="removeLayerBtn">Remove layer</button>
+        </div>
+      </aside>
+    </div>
+
+    <input id="fileInput" type="file" accept="image/*,.pdf,application/pdf" multiple hidden />
+    <dialog id="exportDialog"><div class="modal-head"><div><p class="eyebrow">READY WHEN YOU ARE</p><h2>Export composition</h2></div><button class="modal-close">×</button></div><p class="modal-copy">Your work stays in this browser. Nothing is uploaded.</p><div class="export-options"><button data-format="png"><b>PNG</b><span>High quality image with transparency</span><i>↓</i></button><button data-format="jpg"><b>JPG</b><span>Lightweight image for sharing</span><i>↓</i></button><button data-format="pdf"><b>PDF</b><span>Single-page printable document</span><i>↓</i></button></div></dialog>
+    <div id="toast" role="status"></div>
+    <script src="app.js"></script>
+  </body>
+</html>

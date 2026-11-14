@@ -1,0 +1,3 @@
+'use client';
+import { useEffect,useRef,useState } from 'react';
+export default function CanvaPage(){const mount=useRef(null),[ready,setReady]=useState(false);useEffect(()=>{let active=true;(async()=>{const shell=await fetch('/api/editor-shell').then(r=>r.text());if(!active||!mount.current)return;mount.current.innerHTML=shell;await import('../../app.js');if(active)setReady(true)})();return()=>{active=false}},[]);return <main className="min-h-screen bg-zinc-50">{!ready&&<div className="fixed inset-0 z-50 grid place-items-center bg-zinc-950 text-sm font-medium text-lime-300">Loading ihatephotoshop…</div>}<div ref={mount}/></main>}
