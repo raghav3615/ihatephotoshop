@@ -2,107 +2,510 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Untitled — ihatephotoshop</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>ihatephotoshop — Browser Studio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Caveat:wght@600&family=Cinzel:wght@600&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Inter:wght@400;500;600;700;900&family=Montserrat:wght@400;600;700;800&family=Oswald:wght@500;700&family=Pacifico&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Roboto:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="app/editor.css" />
   </head>
   <body>
     <div class="app-shell">
+      <!-- Topbar -->
       <header class="topbar">
         <a class="brand" href="/" aria-label="ihatephotoshop home">
           <span class="brand-mark"><i></i><i></i><i></i></span>
           <span>ihate<span>photoshop</span></span>
         </a>
-        <div class="document-title"><span class="status-dot"></span><input id="docName" value="Untitled composition" aria-label="Document name" /></div>
-        <div class="canvas-tabs" id="canvasTabs"></div><button class="new-canvas-top" id="newCanvasTop">+ Canvas</button><button class="delete-canvas-top" id="deleteCanvasTop" title="Delete selected canvas">⌫</button>
+
+        <div class="document-title">
+          <span class="status-dot"></span>
+          <input id="docName" value="Untitled composition" aria-label="Document name" />
+        </div>
+
+        <div class="canvas-tabs" id="canvasTabs"></div>
+        <button class="new-canvas-top" id="newCanvasTop">+ Canvas</button>
+        <button class="delete-canvas-top" id="deleteCanvasTop" title="Delete selected canvas">⌫</button>
+
         <div class="top-actions">
           <button class="icon-button" id="themeBtn" title="Toggle dark mode" aria-label="Toggle dark mode">◐</button>
-          <button class="icon-button" id="undoBtn" title="Undo" aria-label="Undo">↶</button>
-          <button class="icon-button" id="redoBtn" title="Redo" aria-label="Redo">↷</button>
+          <button class="icon-button" id="undoBtn" title="Undo (Ctrl+Z)" aria-label="Undo">↶</button>
+          <button class="icon-button" id="redoBtn" title="Redo (Ctrl+Y)" aria-label="Redo">↷</button>
+          <button class="icon-button" id="toggleInspectorBtn" title="Toggle Inspector" aria-label="Toggle Inspector">⚙</button>
           <span class="hairline"></span>
           <button class="button subtle" id="shareBtn">Share</button>
           <button class="button primary" id="exportTop">Export <span>↗</span></button>
         </div>
       </header>
 
+      <!-- Left Icon Rail -->
       <aside class="left-rail">
         <button class="rail-button active" data-panel="assets" title="Assets"><span>▣</span><small>Assets</small></button>
-        <button class="rail-button" data-panel="canvas" title="Canvas"><span>◫</span><small>Canvas</small></button>
-        <button class="rail-button" data-panel="layers" title="Layers"><span>☷</span><small>Layers</small></button>
+        <button class="rail-button" data-panel="canvas" title="Canvas settings"><span>◫</span><small>Canvas</small></button>
+        <button class="rail-button" data-panel="text" title="Text tool"><span>T</span><small>Text</small></button>
+        <button class="rail-button" data-panel="shapes" title="Shapes"><span>■</span><small>Shapes</small></button>
+        <button class="rail-button" data-panel="layers" title="Layers arrangement"><span>☷</span><small>Layers</small></button>
         <div class="rail-spacer"></div>
-        <button class="rail-button" id="helpBtn" title="Help"><span>?</span><small>Help</small></button>
+        <button class="rail-button" id="helpBtn" title="Help & Shortcuts"><span>?</span><small>Help</small></button>
       </aside>
 
+      <!-- Side Panel (Assets, Canvas, Text, Shapes, Layers) -->
       <aside class="panel" id="sidePanel">
+        <!-- Section: Assets -->
         <section data-section="assets">
-          <div class="panel-head"><div><p class="eyebrow">YOUR LIBRARY</p><h2>Assets</h2></div><button class="mini-button" id="addAssetBtn">+</button></div>
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">YOUR LIBRARY</p>
+              <h2>Assets</h2>
+            </div>
+            <button class="mini-button" id="addAssetBtn" title="Upload files">+</button>
+          </div>
           <button class="upload-card" id="uploadCard">
             <span class="upload-icon">↑</span>
             <strong>Drop anything here</strong>
             <small>Images or PDF files · 50 MB max</small>
           </button>
           <div class="or"><span></span>or<span></span></div>
-          <button class="wide-button" id="blankCanvasBtn"><span class="color-swatch"></span>New blank canvas</button>
-          <div class="asset-section-title"><span>RECENT</span><button id="clearAssets">Clear</button></div>
-          <div class="asset-list" id="assetList"><div class="empty-assets">Your uploaded files will live here.</div></div>
-        </section>
-
-        <section data-section="canvas" hidden>
-          <div class="panel-head"><div><p class="eyebrow">COMPOSITION</p><h2>Canvas</h2></div></div>
-          <label class="setting-label">Background</label>
-          <div class="color-row"><input id="backgroundPicker" type="color" value="#101113" /><input id="backgroundHex" class="hex-input" value="#101113" maxlength="7" /></div>
-          <div class="preset-grid" id="colorPresets">
-            <button data-color="#101113" style="--c:#101113" class="selected"></button><button data-color="#f5f4f1" style="--c:#f5f4f1"></button><button data-color="#e9ded1" style="--c:#e9ded1"></button><button data-color="#d9f99d" style="--c:#d9f99d"></button><button data-color="#b5d1ff" style="--c:#b5d1ff"></button><button data-color="#ffc6d9" style="--c:#ffc6d9"></button>
+          <button class="wide-button" id="blankCanvasBtn">
+            <span class="color-swatch"></span>New blank canvas
+          </button>
+          <div class="asset-section-title">
+            <span>RECENT ASSETS</span>
+            <button id="clearAssets">Clear</button>
           </div>
-          <div class="divider"></div>
-          <label class="setting-label">Format</label>
-          <select id="formatSelect" class="select-control"><option value="1400x900">Landscape · 1400 × 900</option><option value="1080x1080">Square · 1080 × 1080</option><option value="1080x1350">Portrait · 1080 × 1350</option><option value="1920x1080">Presentation · 1920 × 1080</option></select>
-          <div class="canvas-spec"><span id="canvasDimensions">1400 × 900 px</span><span>72 DPI</span></div>
+          <div class="asset-list" id="assetList">
+            <div class="empty-assets">Your uploaded images and PDF pages will appear here.</div>
+          </div>
         </section>
 
+        <!-- Section: Canvas Settings -->
+        <section data-section="canvas" hidden>
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">COMPOSITION</p>
+              <h2>Canvas</h2>
+            </div>
+          </div>
+          <label class="setting-label">Background Color</label>
+          <div class="color-row">
+            <input id="backgroundPicker" type="color" value="#ffffff" />
+            <input id="backgroundHex" class="hex-input" value="#ffffff" maxlength="7" />
+          </div>
+          <div class="preset-grid" id="colorPresets">
+            <button data-color="#ffffff" style="--c:#ffffff" class="selected" title="Pure White"></button>
+            <button data-color="#101113" style="--c:#101113" title="Charcoal Dark"></button>
+            <button data-color="#f5f4f1" style="--c:#f5f4f1" title="Soft Cream"></button>
+            <button data-color="#e9ded1" style="--c:#e9ded1" title="Warm Beige"></button>
+            <button data-color="#d5fb50" style="--c:#d5fb50" title="Neon Lime"></button>
+            <button data-color="#b5d1ff" style="--c:#b5d1ff" title="Sky Blue"></button>
+            <button data-color="#ffc6d9" style="--c:#ffc6d9" title="Soft Pink"></button>
+          </div>
+          <div style="margin-top: 10px; display: flex; align-items: center; gap: 8px;">
+            <input type="checkbox" id="transparentBgCheckbox" id="transparentBgCheckbox" />
+            <label for="transparentBgCheckbox" style="font-size: 11px; color: var(--ink-secondary); cursor: pointer;">Transparent background</label>
+          </div>
+
+          <div class="divider"></div>
+          <label class="setting-label">Preset Dimensions</label>
+          <select id="formatSelect" class="select-control">
+            <option value="1400x900">Landscape Composition · 1400 × 900</option>
+            <option value="1080x1080">Instagram Square · 1080 × 1080</option>
+            <option value="1080x1920">Story / Reel / TikTok · 1080 × 1920</option>
+            <option value="1080x1350">Instagram Portrait · 1080 × 1350</option>
+            <option value="1280x720">YouTube Thumbnail · 1280 × 720</option>
+            <option value="1200x675">Twitter / X Post · 1200 × 675</option>
+            <option value="1500x500">Twitter / X Header · 1500 × 500</option>
+            <option value="1920x1080">Full HD Presentation · 1920 × 1080</option>
+            <option value="3840x2160">4K Ultra HD · 3840 × 2160</option>
+            <option value="1240x1754">A4 Document · 1240 × 1754</option>
+          </select>
+          <div class="canvas-spec">
+            <span id="canvasDimensions">1400 × 900 px</span>
+            <span>72 DPI</span>
+          </div>
+        </section>
+
+        <!-- Section: Text Tools -->
+        <section data-section="text" hidden>
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">TYPOGRAPHY</p>
+              <h2>Add Text</h2>
+            </div>
+          </div>
+          <p style="font-size: 12px; color: var(--muted); margin-bottom: 14px;">Choose a style to add text to the canvas with rich web fonts.</p>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <button class="wide-button" id="addHeadingBtn">
+              <b style="font-size: 18px; line-height: 1; font-weight: 800;">T</b>
+              <div>
+                <strong>Heading Text</strong>
+                <div style="font-size: 10px; color: var(--muted);">Large bold title</div>
+              </div>
+            </button>
+            <button class="wide-button" id="addBodyTextBtn">
+              <b style="font-size: 14px; line-height: 1; font-weight: 500;">T</b>
+              <div>
+                <strong>Body Text</strong>
+                <div style="font-size: 10px; color: var(--muted);">Paragraph content</div>
+              </div>
+            </button>
+            <button class="wide-button" id="addCaptionBtn">
+              <b style="font-size: 11px; line-height: 1; font-family: 'DM Mono';">T</b>
+              <div>
+                <strong>Caption / Monospace</strong>
+                <div style="font-size: 10px; color: var(--muted);">Subtle technical label</div>
+              </div>
+            </button>
+          </div>
+        </section>
+
+        <!-- Section: Vector Shapes -->
+        <section data-section="shapes" hidden>
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">VECTOR ELEMENTS</p>
+              <h2>Shapes</h2>
+            </div>
+          </div>
+          <p style="font-size: 12px; color: var(--muted); margin-bottom: 14px;">Add scalable vector shapes with customizable fill, stroke, and roundness.</p>
+          <div class="shape-pill-grid">
+            <button class="shape-btn" id="addRectBtn">
+              <span style="font-size: 16px;">■</span> Rectangle
+            </button>
+            <button class="shape-btn" id="addCircleBtn">
+              <span style="font-size: 16px;">●</span> Circle
+            </button>
+          </div>
+        </section>
+
+        <!-- Section: Layers -->
         <section data-section="layers" hidden>
-          <div class="panel-head"><div><p class="eyebrow">ARRANGEMENT</p><h2>Layers</h2></div><button class="mini-button" id="duplicateBtn">+</button></div>
-          <div id="layersList" class="layers-list"><div class="empty-assets">No layers yet.</div></div>
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">ARRANGEMENT</p>
+              <h2>Layers</h2>
+            </div>
+            <button class="mini-button" id="duplicateBtn" title="Duplicate selected layer">+</button>
+          </div>
+          <div id="layersList" class="layers-list">
+            <div class="empty-assets">No layers yet.</div>
+          </div>
         </section>
       </aside>
 
+      <!-- Center Workspace -->
       <main class="workspace">
         <div class="workspace-toolbar">
-          <div class="toolbar-group"><button id="selectTool" class="tool active" title="Move tool">↖</button><button id="handTool" class="tool" title="Pan canvas">✋</button></div>
-          <div class="toolbar-group selection-tools" id="selectionTools"><button class="tool" id="backwardBtn" title="Send backward">↓</button><button class="tool" id="forwardBtn" title="Bring forward">↑</button><button class="tool delete-tool" id="deleteBtn" title="Delete">⌫</button></div>
-          <div class="zoom-controls"><button id="zoomOut">−</button><span id="zoomText">Fit</span><button id="zoomIn">+</button></div>
+          <!-- Primary Tools -->
+          <div class="toolbar-group">
+            <button id="selectTool" class="tool active" title="Move / Select tool (V)">↖</button>
+            <button id="handTool" class="tool" title="Pan / Hand tool (H)">✋</button>
+            <button id="cropTool" class="tool" title="Crop tool (C)">✂</button>
+            <button id="textTool" class="tool" title="Text tool (T)">T</button>
+            <button id="rectTool" class="tool" title="Rectangle tool (R)">■</button>
+            <button id="circleTool" class="tool" title="Circle tool (O)">●</button>
+            <button id="eyedropperTool" class="tool" title="Eyedropper / Color Picker (I)">💧</button>
+          </div>
+
+          <!-- Crop Action Controls -->
+          <div class="crop-actions-group" id="cropActionsGroup" style="display: none;">
+            <button class="btn-apply" id="applyCropBtn" title="Apply crop (Enter)">✓ Apply Crop</button>
+            <button class="btn-cancel" id="cancelCropBtn" title="Cancel crop (Esc)">✕ Cancel</button>
+          </div>
+
+          <!-- Alignment & Reorder tools -->
+          <div class="toolbar-group selection-tools" id="selectionTools">
+            <button class="tool" id="alignHCenterBtn" title="Align horizontal center">⇥</button>
+            <button class="tool" id="alignVCenterBtn" title="Align vertical center">⤒</button>
+            <button class="tool" id="flipHBtn" title="Flip horizontal">⇆</button>
+            <button class="tool" id="flipVBtn" title="Flip vertical">⇅</button>
+            <button class="tool" id="backwardBtn" title="Send backward">↓</button>
+            <button class="tool" id="forwardBtn" title="Bring forward">↑</button>
+            <button class="tool delete-tool" id="deleteBtn" title="Delete selected layer">⌫</button>
+          </div>
+
+          <!-- Zoom controls -->
+          <div class="zoom-controls">
+            <button id="zoomOut" title="Zoom out">−</button>
+            <span id="zoomText">Fit</span>
+            <button id="zoomIn" title="Zoom in">+</button>
+            <button id="zoomReset" title="Reset zoom" style="font-size: 10px; font-weight: 700;">FIT</button>
+          </div>
         </div>
+
+        <!-- Canvas Stage -->
         <div class="canvas-stage" id="canvasStage">
-          <div class="canvas-wrap" id="canvasWrap"><canvas id="editorCanvas" width="1400" height="900"></canvas></div>
-          <div class="stage-tip" id="stageTip"><kbd>⌘</kbd> + scroll to zoom <span>·</span> Drag to move</div>
+          <div class="canvas-wrap" id="canvasWrap">
+            <canvas id="editorCanvas" width="1400" height="900"></canvas>
+          </div>
+          <div class="stage-tip" id="stageTip">
+            <kbd>Ctrl / ⌘</kbd> + scroll to zoom <span>·</span> Drag corners to resize <span>·</span> Top handle to rotate
+          </div>
         </div>
       </main>
 
-      <aside class="inspector">
-        <div class="inspector-empty" id="inspectorEmpty"><div class="spark">✦</div><h3>Make it yours</h3><p>Drop in an image, PDF or start with a clean canvas.</p></div>
+      <!-- Right Inspector Panel -->
+      <aside class="inspector" id="inspector">
+        <div class="inspector-empty" id="inspectorEmpty">
+          <div class="spark">✦</div>
+          <h3>Select a Layer</h3>
+          <p>Click on any layer on the canvas to inspect and edit typography, filters, transform, and opacity.</p>
+        </div>
+
         <div id="inspectorContent" hidden>
-          <div class="inspector-head"><p class="eyebrow">SELECTED LAYER</p><button id="closeInspector">×</button></div>
-          <h3 id="selectedName">Image</h3>
+          <div class="inspector-head">
+            <p class="eyebrow">SELECTED LAYER</p>
+            <button id="closeInspector" title="Deselect layer">×</button>
+          </div>
+          <input id="selectedNameInput" class="layer-title-input" value="Layer" aria-label="Layer name" />
           <div class="thumb-preview" id="selectedPreview"></div>
+
+          <!-- Text Controls (shown when Text layer selected) -->
+          <div id="textControlsGroup" class="text-editor-box" hidden>
+            <div class="inspector-divider"></div>
+            <label class="setting-label">TEXT CONTENT</label>
+            <textarea id="textValueInput" class="text-editor-textarea" rows="2" placeholder="Your text here"></textarea>
+
+            <label class="setting-label">FONT FAMILY</label>
+            <select id="fontFamilySelect" class="select-control font-select">
+              <option value="DM Sans">DM Sans (Clean & Modern)</option>
+              <option value="DM Mono">DM Mono (Technical Monospace)</option>
+              <option value="Inter">Inter (Product Sans)</option>
+              <option value="Playfair Display">Playfair Display (Luxury Editorial)</option>
+              <option value="Montserrat">Montserrat (Geometric Heavy)</option>
+              <option value="Roboto">Roboto (Neutral Classic)</option>
+              <option value="Space Grotesk">Space Grotesk (Neo-brutalist)</option>
+              <option value="Bebas Neue">Bebas Neue (Impact Headline)</option>
+              <option value="Oswald">Oswald (Condensed Display)</option>
+              <option value="Caveat">Caveat (Handwritten Cursive)</option>
+              <option value="Pacifico">Pacifico (Retro Brush)</option>
+              <option value="Courier Prime">Courier Prime (Vintage Typewriter)</option>
+              <option value="Cinzel">Cinzel (Classical Roman)</option>
+              <option value="Anton">Anton (Bold Poster)</option>
+            </select>
+
+            <div class="control-pair">
+              <label>Font Size <output id="fontSizeValue">48px</output></label>
+              <div style="display: flex; gap: 8px; align-items: center;">
+                <input id="fontSizeRange" type="range" min="10" max="240" value="48" style="flex: 1;" />
+                <input id="fontSizeNumber" type="number" min="8" max="400" value="48" style="width: 50px; padding: 4px; border: 1px solid var(--line); border-radius: 4px; font: 11px 'DM Mono';" />
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+              <div>
+                <label class="setting-label">WEIGHT</label>
+                <select id="fontWeightSelect" class="select-control">
+                  <option value="300">Light</option>
+                  <option value="400">Regular</option>
+                  <option value="600">Semi-Bold</option>
+                  <option value="700">Bold</option>
+                  <option value="900">Black</option>
+                </select>
+              </div>
+              <div>
+                <label class="setting-label">STYLE</label>
+                <button id="fontItalicBtn" class="wide-button" style="padding: 7px 8px; justify-content: center; font-style: italic;">Italic</button>
+              </div>
+            </div>
+
+            <label class="setting-label">ALIGNMENT</label>
+            <div class="button-toggle-group" id="textAlignGroup">
+              <button data-align="left">Left</button>
+              <button data-align="center" class="active">Center</button>
+              <button data-align="right">Right</button>
+            </div>
+
+            <label class="setting-label">TEXT COLOR</label>
+            <div class="color-row">
+              <input id="textColorPicker" type="color" value="#ffffff" />
+              <input id="textColorHex" class="hex-input" value="#FFFFFF" maxlength="7" />
+            </div>
+
+            <div class="control-pair">
+              <label>Letter Spacing <output id="letterSpacingValue">0px</output></label>
+              <input id="letterSpacingRange" type="range" min="-4" max="24" value="0" />
+            </div>
+          </div>
+
+          <!-- Shape Controls (shown when Shape layer selected) -->
+          <div id="shapeControlsGroup" hidden>
+            <div class="inspector-divider"></div>
+            <label class="setting-label">FILL COLOR</label>
+            <div class="color-row">
+              <input id="shapeFillPicker" type="color" value="#d5fb50" />
+              <input id="shapeFillHex" class="hex-input" value="#D5FB50" maxlength="7" />
+            </div>
+
+            <label class="setting-label">STROKE COLOR</label>
+            <div class="color-row">
+              <input id="shapeStrokePicker" type="color" value="#000000" />
+              <input id="shapeStrokeHex" class="hex-input" value="#000000" maxlength="7" />
+            </div>
+
+            <div class="control-pair">
+              <label>Stroke Width <output id="shapeStrokeWidthVal">0px</output></label>
+              <input id="shapeStrokeWidth" type="range" min="0" max="30" value="0" />
+            </div>
+
+            <div class="control-pair" id="shapeRadiusRow">
+              <label>Corner Radius <output id="shapeRadiusValue">12px</output></label>
+              <input id="shapeRadiusRange" type="range" min="0" max="100" value="12" />
+            </div>
+          </div>
+
+          <!-- Image specific controls -->
+          <div id="imageControlsGroup" hidden>
+            <div class="inspector-divider"></div>
+            <button class="wide-button" id="fitLayerBtn">↗ Fit image to canvas</button>
+          </div>
+
+          <!-- Photoshop Core: Filters & Adjustments -->
+          <div id="filtersControlsGroup">
+            <div class="inspector-divider"></div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <label class="setting-label" style="margin: 0;">IMAGE FILTERS & ADJUSTMENTS</label>
+              <button id="resetFiltersBtn" style="border: 0; background: none; font-size: 11px; color: var(--muted); cursor: pointer;">Reset</button>
+            </div>
+            <div class="filter-sliders">
+              <div class="filter-row">
+                <label>Brightness <output id="filterBrightnessVal">100%</output></label>
+                <input id="filterBrightness" type="range" min="0" max="200" value="100" />
+              </div>
+              <div class="filter-row">
+                <label>Contrast <output id="filterContrastVal">100%</output></label>
+                <input id="filterContrast" type="range" min="0" max="200" value="100" />
+              </div>
+              <div class="filter-row">
+                <label>Saturation <output id="filterSaturateVal">100%</output></label>
+                <input id="filterSaturate" type="range" min="0" max="200" value="100" />
+              </div>
+              <div class="filter-row">
+                <label>Blur <output id="filterBlurVal">0px</output></label>
+                <input id="filterBlur" type="range" min="0" max="30" value="0" />
+              </div>
+              <div class="filter-row">
+                <label>Invert <output id="filterInvertVal">0%</output></label>
+                <input id="filterInvert" type="range" min="0" max="100" value="0" />
+              </div>
+              <div class="filter-row">
+                <label>Sepia <output id="filterSepiaVal">0%</output></label>
+                <input id="filterSepia" type="range" min="0" max="100" value="0" />
+              </div>
+              <div class="filter-row">
+                <label>Grayscale <output id="filterGrayscaleVal">0%</output></label>
+                <input id="filterGrayscale" type="range" min="0" max="100" value="0" />
+              </div>
+              <div class="filter-row">
+                <label>Hue Rotate <output id="filterHueRotateVal">0°</output></label>
+                <input id="filterHueRotate" type="range" min="-180" max="180" value="0" />
+              </div>
+            </div>
+          </div>
+
+          <!-- General Layer Transform -->
           <div class="inspector-divider"></div>
-          <div class="control-pair"><label>Opacity <output id="opacityValue">100%</output></label><input id="opacityRange" type="range" min="10" max="100" value="100" /></div>
-          <div class="control-pair"><label>Rotation <output id="rotationValue">0°</output></label><div class="angle-input"><input id="rotationRange" type="range" min="-180" max="180" value="0" /><input id="rotationNumber" type="number" min="-360" max="360" value="0" /><span>°</span></div></div>
+          <div class="control-pair">
+            <label>Opacity <output id="opacityValue">100%</output></label>
+            <input id="opacityRange" type="range" min="5" max="100" value="100" />
+          </div>
+
+          <div class="control-pair">
+            <label>Rotation <output id="rotationValue">0°</output></label>
+            <div class="angle-input">
+              <input id="rotationRange" type="range" min="-180" max="180" value="0" />
+              <input id="rotationNumber" type="number" min="-360" max="360" value="0" />
+              <span>°</span>
+            </div>
+          </div>
+
+          <label class="setting-label" style="margin-top: 14px;">BLEND MODE</label>
+          <select id="blendModeSelect" class="select-control">
+            <option value="source-over">Normal</option>
+            <option value="multiply">Multiply</option>
+            <option value="screen">Screen</option>
+            <option value="overlay">Overlay</option>
+            <option value="darken">Darken</option>
+            <option value="lighten">Lighten</option>
+            <option value="color-dodge">Color Dodge</option>
+            <option value="difference">Difference</option>
+          </select>
+
+          <label class="setting-label" style="margin-top: 14px;">POSITION & SIZE</label>
+          <div class="numeric-grid">
+            <label>X<input id="posX" type="number" /></label>
+            <label>Y<input id="posY" type="number" /></label>
+            <label>W<input id="sizeW" type="number" min="1" /></label>
+            <label>H<input id="sizeH" type="number" min="1" /></label>
+          </div>
+
           <div class="inspector-divider"></div>
-          <label class="setting-label">POSITION</label>
-          <div class="numeric-grid"><label>X<input id="posX" type="number" /></label><label>Y<input id="posY" type="number" /></label><label>W<input id="sizeW" type="number" min="1" /></label><label>H<input id="sizeH" type="number" min="1" /></label></div>
-          <div class="inspector-divider"></div>
-          <button class="wide-button" id="fitLayerBtn">↗ Fit to canvas</button>
+          <button class="wide-button" id="cropImageLayerBtn" style="margin-bottom: 6px;">✂ Crop image layer</button>
+          <button class="wide-button" id="fitLayerBtn" style="margin-bottom: 6px;">↗ Fit to canvas</button>
+          <button class="wide-button" id="centerLayerBtn">◎ Center on canvas</button>
+          <button class="wide-button" id="duplicateLayerBtn" style="margin-top: 6px;">⎘ Duplicate layer</button>
           <button class="wide-button danger" id="removeLayerBtn">Remove layer</button>
         </div>
       </aside>
+
+      <!-- Mobile Bottom Navigation Dock (<= 640px) -->
+      <nav class="mobile-bottom-bar">
+        <button class="mobile-nav-btn" data-target="tools"><span>🛠</span>Tools</button>
+        <button class="mobile-nav-btn" data-target="assets"><span>▣</span>Assets</button>
+        <button class="mobile-nav-btn" data-target="layers"><span>☷</span>Layers</button>
+        <button class="mobile-nav-btn" data-target="properties"><span>⚙</span>Properties</button>
+      </nav>
     </div>
 
+    <!-- Hidden File Input -->
     <input id="fileInput" type="file" accept="image/*,.pdf,application/pdf" multiple hidden />
-    <dialog id="exportDialog"><div class="modal-head"><div><p class="eyebrow">READY WHEN YOU ARE</p><h2>Export composition</h2></div><button class="modal-close">×</button></div><p class="modal-copy">Your work stays in this browser. Nothing is uploaded.</p><div class="export-options"><button data-format="png"><b>PNG</b><span>High quality image with transparency</span><i>↓</i></button><button data-format="jpg"><b>JPG</b><span>Lightweight image for sharing</span><i>↓</i></button><button data-format="pdf"><b>PDF</b><span>Single-page printable document</span><i>↓</i></button></div></dialog>
+
+    <!-- Export Dialog -->
+    <dialog id="exportDialog">
+      <div class="modal-head">
+        <div>
+          <p class="eyebrow">EXPORT COMPOSITION</p>
+          <h2>Export artwork</h2>
+        </div>
+        <button class="modal-close" title="Close dialog">×</button>
+      </div>
+      <p class="modal-copy">Rendered at full vector and pixel resolution directly in your browser.</p>
+      <div class="export-options">
+        <button data-format="png">
+          <b>PNG</b>
+          <span>High quality with transparency support</span>
+          <i>↓</i>
+        </button>
+        <button data-format="jpg">
+          <b>JPG</b>
+          <span>Optimized photo format for quick sharing</span>
+          <i>↓</i>
+        </button>
+        <button data-format="webp">
+          <b>WebP</b>
+          <span>Next-gen lightweight web image</span>
+          <i>↓</i>
+        </button>
+        <button data-format="pdf">
+          <b>PDF</b>
+          <span>Single-page printable vector document</span>
+          <i>↓</i>
+        </button>
+        <button id="copyClipboardBtn" type="button">
+          <b>CLIP</b>
+          <span>Copy image directly to clipboard</span>
+          <i>📋</i>
+        </button>
+      </div>
+    </dialog>
+
+    <!-- Toast Notification -->
     <div id="toast" role="status"></div>
+
     <script src="app.js"></script>
   </body>
 </html>

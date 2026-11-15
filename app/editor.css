@@ -1,1 +1,498 @@
-.document-title{display:none}.canvas-tabs{display:flex;gap:5px;max-width:300px;overflow:auto;margin-left:10px}.canvas-tab{display:flex;align-items:center;border:1px solid var(--line);background:#fff;border-radius:6px;color:#777;white-space:nowrap}.tab-title,.tab-close{border:0;background:transparent;color:inherit;cursor:pointer;font:11px 'DM Sans'}.tab-title{padding:7px 8px 7px 10px}.tab-close{padding:5px 8px 6px 2px;font-size:15px;line-height:12px;opacity:.7}.tab-close:hover{color:#d04b58;opacity:1}.canvas-tab.active{background:#202123;color:#d5fb50;border-color:#202123}.new-canvas-top,.delete-canvas-top{border:1px solid var(--line);background:#fff;border-radius:6px;padding:7px 10px;font:11px 'DM Sans';color:#777;white-space:nowrap;cursor:pointer}.new-canvas-top{margin-left:7px;color:#4c531e;font-weight:600;background:#f5fbdc}.delete-canvas-top{color:#ba4351;font-size:15px;line-height:16px;padding:5px 8px;margin-left:4px}.angle-input{display:flex;align-items:center;gap:7px}.angle-input input[type=range]{flex:1}.angle-input input[type=number]{width:50px;padding:5px;border:1px solid var(--line);border-radius:4px;font:10px 'DM Mono'}.angle-input span{font-size:11px;color:#888}.editor-dark{--ink:#f4f4f0;--muted:#a2a4a7;--line:#303234;--soft:#181a1a;background:#111213}.editor-dark .topbar,.editor-dark .left-rail,.editor-dark .panel,.editor-dark .inspector,.editor-dark .workspace-toolbar{background:#17191a;color:#eee}.editor-dark .document-title input,.editor-dark .panel h2,.editor-dark .inspector h3{background:transparent;color:#eee}.editor-dark .workspace{background:#222425}.editor-dark .canvas-stage{background-color:#222425}.editor-dark .button,.editor-dark .wide-button,.editor-dark .select-control,.editor-dark .color-row,.editor-dark .toolbar-group,.editor-dark .zoom-controls,.editor-dark .numeric-grid input,.editor-dark .canvas-tab{background:#202223;color:#ddd;border-color:#383a3d}.editor-dark .button.primary,.editor-dark .tool.active{background:#d5fb50;color:#191a19}.editor-dark .upload-card,.editor-dark .asset-item:hover,.editor-dark .layer-item.selected{background:#202223}.editor-dark .new-canvas-top{background:#2b3320;color:#d5fb50;border-color:#4a5a34}.editor-dark .delete-canvas-top{background:#302022;border-color:#5c343a}@media(max-width:850px){.canvas-tabs,.new-canvas-top,.delete-canvas-top{display:none}}
+/* ihatephotoshop - Advanced Editor Styles & Calibrated Dark Mode */
+
+/* Custom Shape and Filter Controls */
+.shape-pill-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.shape-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  background: var(--soft);
+  border-radius: var(--radius-sm);
+  color: var(--ink);
+  font: 600 12px 'DM Sans', sans-serif;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.shape-btn:hover {
+  background: #eaebe6;
+  border-color: var(--ink);
+}
+
+.filter-sliders {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.filter-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.filter-row label {
+  display: flex;
+  justify-content: space-between;
+  font: 500 11px 'DM Sans', sans-serif;
+  color: var(--ink-secondary);
+}
+
+.filter-row output {
+  font: 500 10px 'DM Mono', monospace;
+  color: var(--muted);
+}
+
+.filter-row input[type=range] {
+  width: 100%;
+  accent-color: var(--ink);
+  cursor: pointer;
+}
+
+/* Layer Lock / Hide Badges */
+.layer-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font: 600 9px 'DM Mono', monospace;
+  padding: 2px 5px;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--muted);
+}
+
+/* Transform buttons bar */
+.transform-actions-bar {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.transform-actions-bar button {
+  flex: 1;
+  min-width: 70px;
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  background: var(--panel-bg);
+  border-radius: var(--radius-sm);
+  font: 500 11px 'DM Sans', sans-serif;
+  color: var(--ink-secondary);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: all 0.15s;
+}
+
+.transform-actions-bar button:hover {
+  background: var(--soft);
+  color: var(--ink);
+  border-color: var(--ink-secondary);
+}
+
+/* Font preview pills */
+.font-pills {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.font-pill-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  background: var(--soft);
+  border-radius: var(--radius-sm);
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s;
+}
+
+.font-pill-btn:hover {
+  background: var(--panel-bg);
+  border-color: var(--ink);
+}
+
+.font-pill-btn.selected {
+  background: var(--lime-dim);
+  border-color: var(--lime-border);
+  font-weight: 600;
+}
+
+/* Mobile Bottom Navigation Bar (Visible only on <= 640px) */
+.mobile-bottom-bar {
+  display: none;
+  grid-column: 1 / -1;
+  grid-row: 3;
+  background: var(--panel-bg);
+  border-top: 1px solid var(--line);
+  padding: 0 10px;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 40;
+}
+
+@media (max-width: 640px) {
+  .mobile-bottom-bar {
+    display: flex;
+  }
+}
+
+.mobile-nav-btn {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 10px;
+  font: 600 10px 'DM Sans', sans-serif;
+  cursor: pointer;
+}
+
+.mobile-nav-btn span {
+  font-size: 16px;
+}
+
+.mobile-nav-btn.active {
+  color: var(--ink);
+}
+
+/* Desktop rail minimization: the icon rail stays available while the active
+   section collapses and the canvas receives the freed space. */
+@media (min-width: 881px) {
+  .app-shell.panel-collapsed { grid-template-columns: 60px 0 minmax(360px, 1fr) 280px; }
+  .app-shell.panel-collapsed .panel { display: none; }
+}
+
+@media (min-width: 881px) and (max-width: 1050px) {
+  .app-shell.panel-collapsed { grid-template-columns: 56px 0 minmax(360px, 1fr) 250px; }
+}
+
+/* Touch-first layout refinements. The canvas remains unobstructed while
+   drawers and toolbars stay reachable at phone and tablet widths. */
+@media (max-width: 880px) {
+  .topbar .brand { width: auto; flex: 0 0 auto; }
+  .top-actions { margin-left: auto; gap: 4px; }
+  .workspace-toolbar { overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; }
+  .workspace-toolbar::-webkit-scrollbar { display: none; }
+  .workspace-toolbar > * { flex: 0 0 auto; }
+  .panel, .inspector { overflow-y: auto; overscroll-behavior: contain; }
+}
+
+@media (max-width: 640px) {
+  .topbar { min-width: 0; min-height: 54px; padding: 0 10px; gap: 8px; }
+  .brand { width: 34px; overflow: hidden; gap: 0; }
+  .brand-mark { flex: 0 0 24px; }
+  .top-actions { gap: 2px; }
+  .top-actions .subtle, .top-actions .hairline, #undoBtn, #redoBtn, #toggleInspectorBtn { display: none; }
+  .top-actions .icon-button { width: 34px; height: 34px; font-size: 17px; }
+  .top-actions .button.primary { padding: 10px 13px; min-height: 36px; }
+  .workspace-toolbar { min-height: 52px; padding: 0 8px; gap: 8px; scroll-snap-type: x proximity; border-bottom-color: var(--line); }
+  .workspace-toolbar > * { scroll-snap-align: start; }
+  .toolbar-group { flex: 0 0 auto; border-radius: 8px; }
+  .tool { width: 36px; height: 34px; font-size: 16px; }
+  .selection-tools { max-width: 126px; overflow: hidden; }
+  .zoom-controls { margin-left: 0; border-radius: 8px; }
+  .zoom-controls span { min-width: 40px; }
+  .canvas-stage { min-height: 0; }
+  .mobile-bottom-bar { padding: 3px 4px calc(3px + env(safe-area-inset-bottom)); min-height: 58px; }
+  .mobile-nav-btn { flex: 1; min-width: 0; padding: 5px 1px; font-size: 9px; border-radius: 7px; }
+  .mobile-nav-btn:active { background: var(--lime-dim); }
+  .mobile-nav-btn span { font-size: 16px; line-height: 17px; }
+  .panel.mobile-open, .inspector.mobile-open { z-index: 90; padding: 0 14px 16px; max-height: min(72dvh, 620px); box-shadow: 0 -18px 45px rgba(0,0,0,.16); }
+  .panel.mobile-open::before, .inspector.mobile-open::before { content: ''; display: block; position: sticky; top: 0; z-index: 3; width: 38px; height: 4px; margin: 8px auto 12px; border-radius: 9px; background: var(--line); }
+  .panel.mobile-open .panel-head, .inspector.mobile-open .inspector-head { position: sticky; top: 0; z-index: 2; padding-top: 4px; background: var(--panel-bg); }
+  .panel.mobile-open .upload-card { min-height: 112px; }
+  .panel.mobile-open .wide-button, .inspector.mobile-open .wide-button { min-height: 44px; }
+}
+
+/* ==========================================================================
+   CALIBRATED DARK MODE (editor-dark)
+   Fixes all washed out colors, green mismatches, white-on-white text
+   ========================================================================== */
+.editor-dark {
+  --ink: #f4f4f0;
+  --ink-secondary: #c5c7cb;
+  --muted: #95989e;
+  --line: #2c2e31;
+  --line-subtle: #222426;
+  --soft: #17181a;
+  --panel-bg: #151618;
+  --workspace-bg: #0f1011;
+  --lime: #d5fb50;
+  --lime-hover: #e2fc73;
+  --lime-dark: #121314;
+  --lime-dim: rgba(213, 251, 80, 0.12);
+  --lime-border: rgba(213, 251, 80, 0.3);
+  --badge-dark: #121314;
+  --danger: #f87171;
+  --danger-bg: #2d1819;
+  background: #0f1011;
+  color: var(--ink);
+}
+
+.editor-dark .app-shell {
+  background: #0f1011;
+}
+
+.editor-dark .topbar,
+.editor-dark .left-rail,
+.editor-dark .panel,
+.editor-dark .inspector,
+.editor-dark .workspace-toolbar,
+.editor-dark .mobile-bottom-bar {
+  background: #151618;
+  border-color: #282a2d;
+  color: var(--ink);
+}
+
+.editor-dark .workspace {
+  background: #0f1011;
+}
+
+.editor-dark .workspace-toolbar {
+  background: rgba(21, 22, 24, 0.92);
+  border-bottom-color: #282a2d;
+}
+
+.editor-dark .canvas-stage {
+  background-color: #0f1011;
+  background-image: radial-gradient(#2b2e31 0.8px, transparent 0.8px);
+}
+
+.editor-dark .canvas-wrap {
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.editor-dark .canvas-wrap.checkerboard {
+  background-image: linear-gradient(45deg, #1c1d20 25%, transparent 25%),
+                    linear-gradient(-45deg, #1c1d20 25%, transparent 25%),
+                    linear-gradient(45deg, transparent 75%, #1c1d20 75%),
+                    linear-gradient(-45deg, transparent 75%, #1c1d20 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+}
+
+/* Ensure inputs, select boxes, and cards have proper dark backgrounds and light text */
+.editor-dark .document-title,
+.editor-dark .color-row,
+.editor-dark .select-control,
+.editor-dark .numeric-grid input,
+.editor-dark .angle-input input[type=number],
+.editor-dark .text-editor-textarea,
+.editor-dark .button-toggle-group,
+.editor-dark .toolbar-group,
+.editor-dark .zoom-controls,
+.editor-dark .canvas-tab {
+  background: #1c1d20;
+  border-color: #303337;
+  color: #eeeeec;
+}
+
+.editor-dark .document-title input,
+.editor-dark .hex-input,
+.editor-dark .layer-title-input {
+  color: #eeeeec;
+}
+
+.editor-dark .select-control option {
+  background: #1c1d20;
+  color: #eeeeec;
+}
+
+.editor-dark .button,
+.editor-dark .wide-button,
+.editor-dark .shape-btn,
+.editor-dark .font-pill-btn,
+.editor-dark .transform-actions-bar button {
+  background: #1c1d20;
+  border-color: #303337;
+  color: #eeeeec;
+}
+
+.editor-dark .button:hover,
+.editor-dark .wide-button:hover,
+.editor-dark .shape-btn:hover,
+.editor-dark .font-pill-btn:hover,
+.editor-dark .transform-actions-bar button:hover {
+  background: #25272b;
+  border-color: #404449;
+}
+
+/* Active and primary tools */
+.editor-dark .button.primary {
+  background: var(--lime) !important;
+  color: var(--lime-dark) !important;
+  border-color: var(--lime) !important;
+}
+
+.editor-dark .button.primary span {
+  color: var(--lime-dark) !important;
+}
+
+.editor-dark .tool.active,
+.editor-dark .button-toggle-group button.active {
+  background: var(--lime) !important;
+  color: var(--lime-dark) !important;
+}
+
+.editor-dark .upload-card {
+  background: #17191b;
+  border-color: #313438;
+}
+
+.editor-dark .upload-card:hover {
+  background: #1d2023;
+  border-color: #4c5157;
+}
+
+.editor-dark .upload-card strong {
+  color: #f3f4f6;
+}
+
+.editor-dark .asset-item {
+  background: #1a1b1e;
+  border-color: #282a2d;
+}
+
+.editor-dark .asset-item:hover {
+  background: #222428;
+}
+
+.editor-dark .asset-file,
+.editor-dark .layer-name {
+  color: #eeeeec;
+}
+
+.editor-dark .layer-item {
+  background: #191b1d;
+}
+
+.editor-dark .layer-item:hover {
+  background: #212326;
+}
+
+.editor-dark .layer-item.selected {
+  background: rgba(213, 251, 80, 0.12);
+  border-color: rgba(213, 251, 80, 0.35);
+}
+
+.editor-dark .new-canvas-top {
+  background: #232c16;
+  color: var(--lime);
+  border-color: #3f5022;
+}
+
+.editor-dark .new-canvas-top:hover {
+  background: #2d381c;
+}
+
+.editor-dark .delete-canvas-top {
+  background: #2b1819;
+  border-color: #482326;
+  color: #f87171;
+}
+
+/* Stage Tip in Dark Mode */
+.editor-dark .stage-tip {
+  background: rgba(24, 26, 29, 0.88);
+  border-color: #34373c;
+  color: #c5c7cb;
+}
+
+.editor-dark .stage-tip kbd {
+  background: #33363b;
+  color: #f4f4f0;
+}
+
+/* Modals & Dialogs in Dark Mode */
+.editor-dark dialog {
+  background: #161719;
+  border-color: #303337;
+  color: #eeeeec;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.7);
+}
+
+.editor-dark .export-options button {
+  background: #1c1d20;
+  border-color: #303337;
+  color: #eeeeec;
+}
+
+.editor-dark .export-options button:hover {
+  background: #25282c;
+  border-color: var(--lime);
+}
+
+.editor-dark .export-options b {
+  color: #eeeeec;
+}
+
+.editor-dark .export-options span {
+  color: #95989e;
+}
+
+.editor-dark .export-options i {
+  color: var(--lime);
+}
+
+.editor-dark .modal-copy {
+  color: #95989e;
+}
+
+/* Selection outline on canvas is always neon lime */
+.editor-dark .preset-grid button.selected {
+  outline: 2px solid var(--lime) !important;
+  outline-offset: 2px;
+}
+
+.editor-dark .spark {
+  color: var(--lime);
+}
+
+.editor-dark .thumb-preview {
+  background-color: #1a1b1d;
+  border-color: #2c2e32;
+}
+
+.editor-dark .crop-actions-group {
+  background: rgba(213, 251, 80, 0.12);
+  border-color: rgba(213, 251, 80, 0.35);
+}
+
+.editor-dark .crop-actions-group .btn-cancel {
+  color: #f5f5f1;
+}
+
+.editor-dark .crop-actions-group .btn-cancel:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.editor-dark #cropImageLayerBtn {
+  background: rgba(213, 251, 80, 0.12);
+  color: var(--lime);
+  border-color: rgba(213, 251, 80, 0.35);
+}
+
+.editor-dark #cropImageLayerBtn:hover {
+  background: var(--lime);
+  color: var(--lime-dark);
+}
