@@ -1,4 +1,5 @@
 import './globals.css';
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata = {
   title: 'ihatephotoshop — Fast, calm browser image editor',
@@ -32,7 +33,10 @@ export default function RootLayout({ children }) {
         />
         <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='6' fill='%2317181a'/><rect x='6' y='12' width='3' height='7' rx='1.5' fill='%23d5fb50'/><rect x='10.5' y='7' width='3' height='12' rx='1.5' fill='%23d5fb50'/><rect x='15' y='10' width='3' height='9' rx='1.5' fill='%23d5fb50'/></svg>" />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
